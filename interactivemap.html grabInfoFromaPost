@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A cool thing made with Glitch" />
+
+    <title>BiophiliaChicago</title>
+    <!-- import mapbox style -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <!-- import ebird -->
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="eBird.js"
+    ></script>
+    <!-- import LOGO icon->
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="topnav">
+        <!--a class="active" href="#home">Home</a-->
+        <a href="events.html">Events/Resources</a>
+        <a href="about.html">About the project</a>
+        <div class="dropdown">
+          <a>Why it matters?</a>
+          <i><br /><br /></i>
+          <div class="dropdown-content">
+            <a href="RisksToEnvironment.html">Risks to the environment</a>
+            <a href="HowYouCanHelp.html">How you can help</a>
+            <a href="AddToTheDatabase.html">Add to the database</a>
+          </div>
+        </div>
+        <a href="interactivemap.html">Interactive Map</a>
+      </div>
+    </header>
+
+    <div class="sidenav">
+      <div class="topnav-logo">
+        <a
+          href="index.html"
+          style="padding:30px; height: 30px;width: 30px;padding-bottom:10px;"
+          >LOGO</a
+        >
+      </div>
+
+      <br /><br />
+      <section id="posts"></section>
+
+      <template id="post-template">
+        <div class="post">
+          <!--           <img src="" alt="" class="post__img"> -->
+
+          <button
+            class="post__title"
+            onclick="openForm()"
+            style="text-align:left; margin:10px; padding:1px;"
+          ></button>
+        </div>
+      </template>
+    </div>
+
+    <!--pop up-->
+    <div class="chat-popup" id="myForm">
+      <form class="form-container">
+        <h1 id="names"></h1>
+        <p id="sciNames">  </p>
+        <a
+          style="border: 1px solid black; padding:30px; height: 300px;width: 770px;text-align:center;"
+          >IMAGE/3D model</a
+        >
+        <button type="button" class="btn cancel" onclick="closeForm()">
+          Close
+        </button>
+      </form>
+    </div>
+
+    <div id="map"></div>
+    <script>
+      
+      var latitude;
+      var longitude;
+      
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+
+      var birdName;
+      var myHeaders = new Headers();
+      myHeaders.append("X-eBirdApiToken", "tsqff550l2u8");
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+
+      const postSection = document.querySelector("#posts");
+      const postTemplate = document.querySelector("#post-template");
+      const infoTemplate = document.querySelector("#info-template");
+
+      const names = document.querySelector("#names");
+      const sciNames = document.querySelector("#sciNames");
+      getData().catch(err => console.error(err));
+
+      async function getData() {
+        const postStream = await fetch(
+          "https://api.ebird.org/v2/data/obs/US-IL/recent",
+          requestOptions
+        );
+        const posts = await postStream.json();
+        let i = 0;
+
+        // throw 'Get Data Error';
+        console.log(posts);
+
+        posts.forEach(post => {
+          i++;
+          if (i < 30) {
+            const title = post.comName;
+            const body = post.howMany;
+            const sciNames = post.sciName;
+            latitute = post.lat;
+            longitute = post.lng;
+            fetch(
+              "https://api.ebird.org/v2/data/obs/US-IL/recent",
+              requestOptions
+            )
+              .then(res => res.blob())
+              .then(blob => {
+                const newPost = document.importNode(postTemplate.content, true);
+                const postTitle = newPost.querySelector(".post__title");
+               
+                // const postBody = newPost.querySelector('.post__body');
+                // const postImg = newPost.querySelector('.post__img');
+
+                // throw 'Image Fetch Error';
+
+                // postImg.src = URL.createObjectURL(blob);
+                postTitle.innerText = title;
+                // postBody.innerText = body;
+                document.getElementById("sciNames").innerHTML = sciNames;
+                document.getElementById("names").innerHTML = title;
+                postSection.appendChild(newPost);
+              })
+              .catch(err => console.error(err));
+          }
+        });
+      }
+
+      //Mapbox
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiaG9saWhvbGx5ZGF5IiwiYSI6ImNrZjRuZHR2cDA1ODYyem9jemIzMXBnOWIifQ.tV7mtKngwhPQuRkw3qyE5w";
+      var map = new mapboxgl.Map({
+        container: "map", // container id
+        style: "mapbox://styles/mapbox/streets-v11", // style URL
+        maxZoom: 12,
+        minZoom: 4,
+        zoom: 100,
+        center: [-87.63, 41.874] // starting position [lng, lat] // chicago lat, lon
+      });
+
+      document.getElementById('posts').addEventListener("click", function() {
+        // Fly to a random location by offsetting the point -74.50, 40
+        // by up to 5 degrees.
+        map.flyTo({
+          center: [
+            longitute + (Math.random() - 0.5) * 10,
+            latitute + (Math.random() - 0.5) * 10
+          ],
+          essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        });
+      });
+    </script>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <footer><a>Copyright </a></footer>
+  </body>
+</html>

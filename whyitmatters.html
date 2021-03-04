@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="Chicago bird community events environment threat" />
+
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2Fcrow-solid.svg?v=1604344661941"
+      type="svg/x-icon"
+    />
+    <title>BiophiliaChicago</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <script
+      src="https://kit.fontawesome.com/05e3842e9b.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- import video player -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+  </head>
+
+  <body style="background-color:#000">
+    <header>
+      <nav class="topnav" id="menu">
+        <div class="container" id="logo">
+          <a href="index.html">
+            <img
+              class="target"
+              src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FLOGO_5x1.png?v=1601925153018"
+              style="width:150px;"
+            />
+          </a>
+        </div>
+        <div class="overlay" id="myNav">
+          <a
+            href="javascript:void(0)"
+            class="closebtn"
+            id="closeBtn"
+            onclick="closeNav()"
+            >&times;</a
+          >
+          <div class="overlay-content">
+            <div class="nav-left">
+              <a href="birdsinchicago.html">Birds in Chicago</a>
+              <a href="about.html">About Biophilia</a>
+            </div>
+            <div class="nav-right">
+              <a href="whyitmatters.html">Why it Matters</a>
+              <a href="events.html">Events/Resources</a>
+            </div>
+          </div>
+        </div>
+        <span id="openNav" class="responsive_menu" onclick="openNav()"
+          >&#9776;</span
+        >
+      </nav>
+    </header>
+
+    <!--     Control the background video -->
+    <div class="vimeo-wrapper">
+      <iframe
+        class="vimeoVideo"
+        src="https://player.vimeo.com/video/354529460?api=1&background=1&autoplay=1&loop=1&byline=0&title=0"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+        id="video"
+      ></iframe>
+    </div>
+
+    <div class="controllPanel">
+      <span style="font-size:20px; color:#8a8a8a; padding:20px;">
+        <a id="vol-button" class="fa fa-volume-off"></a>
+      </span>
+      <span style="font-size:20px; color:#8a8a8a;padding:20px;">
+        <a id="play-pause-button" class="fa fa-pause"></a>
+      </span>
+      <span style="font-size:20px; color:#8a8a8a;padding:20px;">
+        <a id="videoInfo-button" class="fa fa-info-circle"></a>
+        <div class="videoInfo">
+          <p style="font-size:14px;">
+            This looping video uses drone video footage, 3D skeletal models,
+            commissioned music, and CGI simulations to express and explore the
+            relationship between bird species and their habitats. Primary
+            videography locations were selected to emulate the conditions that
+            each species live in: Promontory Point, Calumet West Shore and Gull
+            Island, and multiple locations in McMahon Woods. The species
+            presented in the video are the following: African Skimmer, African
+            Jacana, American Avocet, Caspian Plover, Heermann’s Gull, and the
+            Razorbill.
+          </p>
+        </div>
+      </span>
+    </div>
+
+    <div class="content">
+      <h1>Why birds?</h1>
+      <p style="padding-top:30px">
+        Like other living things, humans rely on healthy ecosystems for
+        survival. Functioning ecosystems provide clean air, food, medicine,
+        flood and climate control and are often important spiritual,
+        recreational, and cultural sites.
+        <br /><br />
+        While birds are just one of the many types of organisms living in any
+        given ecosystem, focusing science, outreach, and advocacy on birds often
+        provides us with a way to understand the state an ecosystem is in and to
+        engage people with the world around them. Chicago alone has over 300
+        different types of birds that can be observed at different times of the
+        year in virtually every location.
+      </p>
+      <br /><br />
+
+      <h1>What are the particular threats to birds in Chicago?</h1>
+      <p>
+        As climate change continues, many of Chicago's birds have begun to see
+        their habitats threatened by factors such as degradation and increased
+        extreme weather events. For some, the climate in Chicago may also become
+        unsuitable for their existence and result in them moving to other
+        locations. We know that climate change does not affect different types
+        of birds in the same way- some are much more vulnerable than others.
+        Below, you can explore a simulated graphic of the potential impacts of
+        climate change on some birds that can be seen in the state of Illinois.
+        When ‘current’ is selected, you will see how the number of birds seen
+        has changed since 2010. These numbers are based on how often a bird was
+        seen and input into the ‘Ebird’ database, so the increase likely
+        represents an increase in usage of the site as technology to upload
+        observations became more readily available. When you select ‘3 degrees’
+        you will see the “speculative past” of these birds if the habitat loss
+        predicted to occur (i.e. 30% of a birds current range is predicted to be
+        lost) had already occurred.
+      </p>
+      <br /><br />
+
+      <h2>
+        Warming scenario:
+        <div class="tooltip">
+          <i class="far fa-question-circle" style="padding-left:5px;"></i>
+          <span class="tooltiptext"
+            >To help understand how climate change may alter Earth, scientists
+            use models that run under different ‘scenarios’ depending on how
+            much the causes of climate change are mitigated by humans.
+            <br />
+            Many biologists will then use these predictions to understand how
+            the suitable habitat for a given species may shift in location,
+            grow, or shrink.
+          </span>
+        </div>
+      </h2>
+      <div class="scenarioButton">
+        <input type="checkbox" id="activate-div" />
+        <label for="activate-div">
+          <div class="my-div">
+            Current
+            <span class="clickableDiv" style="padding-left:5px;">
+              &nbsp; +&nbsp;3.0 °C
+            </span>
+          </div>
+        </label>
+      </div>
+      <br /><br />
+      <div class="graph">
+        <img
+          id="img-birdPopulationGraph"
+          src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_allx2.png?v=1603733942971"
+          style="position:relative;width:100%"
+        />
+        <img
+          id="img-chosenBird"
+          style="position:absolute;top:0;left:0;width:100%;z-index:1;"
+        />
+        <div class="blurb" id="blurbContainer">
+          <p id="blurb-birds">
+            A ‘3 degree’ scenario hypothesizes that if the average temperature
+            on Earth rises by 3 degrees, what will things like regional
+            temperatures, precipitation, and weather events look like?
+            <br /><br />
+
+            <b>Choose</b> one bird below and <b>click</b> "+3.0 °C" button to learn more
+            about how they are affected by climate change.
+          </p>
+          <button class="btn-closeBlurb" onclick="closeBlurb()">
+            X
+          </button>
+        </div>
+        
+        <div class="btn">
+          <i class="fas fa-square" style="color:#cc9999;"></i>
+          <button style="color:#cc9999" onclick="showGraphButton1()">
+            Bobolink
+          </button>
+          <i class="fas fa-square" style="color:#cc9999"></i>
+          <button style="color:#cc9999" onclick="showGraphButton2()">
+            Scarlet Tanager
+          </button>
+          <i class="fas fa-square" style="color:#cab088"></i>
+          <button style="color:#cab088" onclick="showGraphButton3()">
+            Sandhill Crane
+          </button>
+          <i class="fas fa-square" style="color:#b1b175"></i>
+          <button style="color:#b1b175" onclick="showGraphButton4()">
+            Wood Duck
+          </button>
+          <i class="fas fa-square" style="color:#b1b175"></i>
+          <button style="color:#b1b175" onclick="showGraphButton5()">
+            Black Capped Chickadee
+          </button>
+          <i class="fas fa-square" style="color:#ccccff"></i>
+          <button style="color:#ccccff" onclick="showGraphButton6()">
+            Northern Cardinal
+          </button>
+
+          <div>
+            <div class="rectangle" style="background-color: #cc9999;">
+              High Vulnerability
+            </div>
+            <div class="rectangle" style="background-color: #cab088;">
+              Moderate Vulnerability
+            </div>
+            <div class="rectangle" style="background-color: #b1b175;">
+              Low Vulnerability
+            </div>
+            <div class="rectangle" style="background-color: #ccccff;">
+              Least Vulnerability
+            </div>
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+      <h1>What can I do?</h1>
+
+      <p style="padding-top:30px">
+        In addition to exploring your local areas, we also encourage everyone to
+        support and follow the following groups who frequently share actions
+        surrounding environmental legislation or similar issues.
+      </p>
+
+      <div class="container-profile">
+        <div class="row">
+          <div class="our-team">
+            <div class="picture">
+              <a href="http://www.lvejo.org/" target="_blank">
+                <img
+                  class="img-fluid"
+                  src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FLVEJO.PNG?v=1603394936738"
+                />
+              </a>
+            </div>
+            <div class="team-content">
+              <h3 class="orgName">
+                Little Village Environmental Justice Organization
+              </h3>
+              <h4 class="mission">
+                The mission of LVEJO is to organize with our community to
+                accomplish environmental justice in Little Village and achieve
+                the self-determination of immigrant, low-income, and
+                working-class families.
+              </h4>
+            </div>
+            <ul class="social">
+              <li>
+                <a
+                  href="http://www.lvejo.org/"
+                  class="fa fa-globe"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/lvejo2020/"
+                  class="fa fa-facebook"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com/LVEJO"
+                  class="fa fa-twitter"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/little-village-environmental-justice-organization/"
+                  class="fa fa-linkedin"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="our-team">
+            <div class="picture">
+              <a href="http://setaskforce.org/" target="_blank">
+                <img
+                  class="img-fluid"
+                  src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FSETF-logo.png?v=1603394609375"
+                />
+              </a>
+            </div>
+            <div class="team-content">
+              <h3 class="orgName">Southeast Environmental Task Force</h3>
+              <h4 class="mission">
+                Dedicated to serving the southeast side and south suburbs of
+                Chicago by promoting environmental education, pollution
+                prevention, and sustainable development.
+              </h4>
+            </div>
+            <ul class="social">
+              <li>
+                <a
+                  href="http://setaskforce.org/"
+                  class="fa fa-globe"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/setaskforce/"
+                  class="fa fa-facebook"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com/setaskforce"
+                  class="fa fa-twitter"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/southeast-environmental-task-force/"
+                  class="fa fa-linkedin"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="our-team">
+            <div class="picture">
+              <a href="https://ilenviro.org/" target="_blank">
+                <img
+                  class="img-fluid"
+                  src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FIECI-logo.jpg?v=1603394605788"
+                />
+              </a>
+            </div>
+            <div class="team-content">
+              <h3 class="orgName">Illinois Environmental Council</h3>
+              <h4 class="mission">
+                IEC works to safeguard Illinois—its people, its plants and
+                animals, and the natural systems on which all life depends.
+              </h4>
+            </div>
+            <ul class="social">
+              <li>
+                <a
+                  href="https://ilenviro.org/"
+                  class="fa fa-globe"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/ilenviro/"
+                  class="fa fa-facebook"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com/ilenviro?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                  class="fa fa-twitter"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/illinois-environmental-council/"
+                  class="fa fa-linkedin"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="our-team">
+            <div class="picture">
+              <a href="https://www.chicagoaudubon.org/" target="_blank">
+                <img
+                  class="img-fluid"
+                  src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FScreenshot_2020-10-22%20wmas_logo_horizontal%20png%20(PNG%20Image%2C%201024%20%C3%97%20402%20pixels).png?v=1603394849925"
+                />
+              </a>
+            </div>
+            <div class="team-content">
+              <h3 class="orgName">Chicago Audubon Society</h3>
+              <h4 class="mission">
+                Chicago Audubon Society connects people with birds and nature
+                through educational programming, field trips, advocacy,
+                stewardship and research.
+              </h4>
+            </div>
+            <ul class="social">
+              <li>
+                <a
+                  href="https://www.chicagoaudubon.org/"
+                  class="fa fa-globe"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/chicagoaudubon/?eid=ARCwE4CtE0XOdNLwhmAZcGNgR1jLULdlKHQg7ddRpnm05N_VjCV5vwpG_ASVnb5jU986gBJ37g_LDO13"
+                  class="fa fa-facebook"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com/chicagoaudubon?lang=en"
+                  class="fa fa-twitter"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/chicago-audubon-society/about/"
+                  class="fa fa-linkedin"
+                  aria-hidden="true"
+                  target="_blank"
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+     <p>
+     © 2021 Biophilia Chicago
+      </p>   
+    </div>
+    <script>
+      function closeBlurb() {
+        document.getElementById("blurbContainer").style.display = "none";
+      }
+      // Bobolink
+      function showGraphButton1() {
+        if (document.getElementById("activate-div").checked) {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Bobolink_%2B3x2.png?v=1603733943937";
+        } else {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Bobolink_Cx2.png?v=1603733944187";
+        }
+        document.getElementById("blurb-birds").innerHTML =
+          "Small, black, yellow, and white bird. Seen in Illinois in the Spring/Summer in grasslands & meadows. Have faced ongoing habitat & nest loss from increased human presence & changes in farming practices. Projects have been established that provide credits to farmers who delay their mowing so as not to disturb nests these birds build in shallow depressions in the ground. Also facing marked habitat loss (about 90% of their current habitat under a three degree warming scenario is predicted to become unsuitable. Are predicted to gain some new range in Canada.";
+        document.getElementById("blurbContainer").style.display = "block";
+      }
+      //Scarlet Tanager
+      function showGraphButton2() {
+        if (document.getElementById("activate-div").checked) {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Scarlet%20Tanager_%2B3x2.png?v=1603733948988";
+        } else {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Scarlet%20Tanager_Cx2.png?v=1603733949592";
+        }
+        document.getElementById("blurb-birds").innerHTML =
+          "Seen in Chicago in the spring & summer. Breeding males are bright red, others are mustard yellow. Rely on forests for foraging & are of concern due to habitat loss in both their breeding & non-breeding habitat. Under a scenario where nothing is done to curb climate change, 68% of the summer range of scarlet tanagers (including all of Illinois) is predicted to become unsuitable for scarlet tanagers. Additionally, these birds appear very dependent on having large, intact forest tracks to survive and are thus threatened by habitat loss.";
+        document.getElementById("blurbContainer").style.display = "block";
+      }
+      //Sandhill Crane
+      function showGraphButton3() {
+        if (document.getElementById("activate-div").checked) {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Sandhill%20Crane_%2B3x2.png?v=1603733945439";
+        } else {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Sandhill%20Crane_Cx2.png?v=1603733947504";
+        }
+        document.getElementById("blurb-birds").innerHTML =
+          "Large, greyish bird with a red head that frequents prairies, marshes & grasslands. Can be seen in specific locations in the fall during migration in giant flocks. Currently common & even increasing in number. Under a 3 degree warming scenario, about 40% of their current range is predicted to become unsuitable, with other parts of their current habitat in North America remaining stable, & some northern parts of Canada becoming newly habitable. LIke many migratory birds, the heavy reliance on specific locations where flocks will stop and eat during migration makes them vulnerable to habitat loss- if these locations are degraded or lost, the birds are at great risk.";
+        document.getElementById("blurbContainer").style.display = "block";
+      }
+      //Wood Duck
+      function showGraphButton4() {
+        if (document.getElementById("activate-div").checked) {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Wood%20Duck_%2B3x2.png?v=1603733949358";
+        } else {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Wood%20Duck_Cx2.png?v=1603733950159";
+        }
+        document.getElementById("blurb-birds").innerHTML =
+          "Colorful, iridescent ducks- common in Illinois in the Spring & Summer. Had a huge population crash in the late 19th century but is now quite abundant, largely due to regulations from the Migratory Bird Act of 1918. Under a 3 degree warming scenario, are predicted to lose about 30 % of their current habitat. The other 70% is predicted to remain stable & an area about half of the size of their current range is predicted to become newly suitable. Wood ducks are also at risk of habitat loss from continued urbanization, wildfires, and false springs.";
+        document.getElementById("blurbContainer").style.display = "block";
+      }
+      //Black Capped Chickadee
+      function showGraphButton5() {
+        if (document.getElementById("activate-div").checked) {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Black%20Capped%20Chickadee_%2B3x2.png?v=1603733942971";
+        } else {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Black%20Capped%20Chickadee_Cx2.png?v=1603733944251";
+        }
+        document.getElementById("blurb-birds").innerHTML =
+          "Small birds- can be seen year round in Illinois. Named after the sound of their call which resembles a ‘chick-a-dee-dee’ sound. Frequent visitors to bird feeders. Most of the current range of the chickadee is predicted to remain stable under a three degree warming scenario & only 18% is predicted to be lost. However, while in general the outlook for black capped chickadees is good, these birds are potentially threatened by increased heat waves in the Spring seasons & a potential for increased fires in parts of their ranges. ";
+        document.getElementById("blurbContainer").style.display = "block";
+      }
+      //Northern Cardinal
+      function showGraphButton6() {
+        if (document.getElementById("activate-div").checked) {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Northern%20Cardinal_%2B3x2.png?v=1603733945141";
+        } else {
+          document.getElementById("img-birdPopulationGraph").src =
+            "https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FData_Northern%20Cardinal_Cx2.png?v=1603733944746";
+        }
+        document.getElementById("blurb-birds").innerHTML =
+          "Large owl with two large head tufts that resemble horns. Present in Illinois in all seasons. Perch on branches & swoops down to take rabbits, snakes, hawks and other animals for food. Occupies a diverse range of habitats & have even been known to occupy industrial areas, making them more adaptable to habitat changes. This adaptability has also likely helped numbers grow to what they are today. In general, little (5% under a 3 degree warming scenario) habitat loss is predicted with substantial gains in range being predicted throughout Canada.";
+        document.getElementById("blurbContainer").style.display = "block";
+      }
+    </script>
+
+    <!--   vimeo video player-->
+    <script>
+      var iframe = document.getElementById("video");
+      var player = new Vimeo.Player(iframe);
+      player.setMuted(true);
+
+      player.getVideoTitle().then(function(title) {
+        console.log("title:", title);
+      });
+      // bind events
+      var playButton = document.getElementById("play-pause-button");
+      playButton.addEventListener("click", function() {
+        if ($(this).hasClass("fa-pause")) {
+          $(this).removeClass("fa-pause");
+          $(this).addClass("fa-play");
+          player.pause();
+        } else {
+          $(this).removeClass("fa-play");
+          $(this).addClass("fa-pause");
+          player.play();
+        }
+      });
+
+      var infoButton = document.getElementById("videoInfo-button");
+      infoButton.addEventListener("click", function() {
+        console.log("info");
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+
+      var volButton = document.getElementById("vol-button");
+      volButton.addEventListener("click", function() {
+        if ($(this).hasClass("fa-volume-off")) {
+          $(this).removeClass("fa-volume-off");
+          $(this).addClass("fa-volume-up");
+          player.setMuted(false);
+        } else {
+          $(this).removeClass("fa-volume-up");
+          $(this).addClass("fa-volume-off");
+          player.setMuted(true);
+        }
+      });
+    </script>
+
+    <script>
+              <!-- SCROLLABLE MENU-->
+           var prevScrollpos = window.pageYOffset;
+            window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset;
+              if (window.matchMedia("(max-width: 1500px)").matches) {
+                 //MOBILE VERSION
+                  if (prevScrollpos > currentScrollPos) {
+                    document.getElementById("logo").style.display = "block";
+                    document.getElementById("menu").style.top = "-100px";
+                    document.getElementById("menu").style.backgroundColor = "#000";
+                    document.getElementById("menu").style.opacity = "0.9";
+                    document.getElementById("menu").style.height = "200px";
+                  } else {
+                    document.getElementById("logo").style.display = "none";
+                    document.getElementById("menu").style.backgroundColor = "transparent";
+                  }
+      } else {
+                  //DESKTOP VERSION
+                  if (prevScrollpos > currentScrollPos) {
+                    document.getElementById("menu").style.display = "block";
+                    document.getElementById("menu").style.top = "-100px";
+                    document.getElementById("menu").style.backgroundColor = "#000";
+                    document.getElementById("menu").style.opacity = "0.9";
+                    document.getElementById("menu").style.height = "200px";
+                    document.getElementById("menu").style.zIndex = "4";
+                  } else {
+                    document.getElementById("menu").style.display = "none";
+                  }
+            }
+
+              prevScrollpos = currentScrollPos;
+            }
+            <!--    RESPONSIVE NAVIGATION -->
+            function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+            document.getElementById("myNav").style.zIndex= "4";
+            document.getElementById("menu").style.opacity = "1";
+            document.getElementById("closeBtn").style.display= "block";
+            }
+
+            function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+           document.getElementById("menu").style.opacity = "0.8";
+            }
+    </script>
+    <script>
+      <!--     LOGO ROTATE EFFECT -->
+      var $container = $(".container"),
+        $target = $(".target"),
+        targetX = $target.offset().left + $target.width() / 2,
+        targetY = $target.offset().top + $target.height() / 2;
+
+         $(window).scroll(function() {
+          var theta = $(window).scrollTop() % 180/Math.PI;
+          $('.target').css({ transform: 'rotate(' + theta + 'rad)' });
+        });
+    </script>
+  </body>
+</html>
