@@ -127,7 +127,7 @@ button {
   margin: auto;
   top: 200px;
   padding:0px 30px 20px;
-  z-index: -1; 
+  z-index: 0; 
 }
 
 .content h1 {
@@ -185,6 +185,10 @@ button {
 /* logo for most pages*/
 /******/
 .container {
+/*   margin:auto; */
+/*   width: 20%; */
+  text-align: center;
+  z-index: 1;
   position: absolute;
   top: 55%; 
   left: 49.3%;
@@ -193,8 +197,7 @@ button {
   height: 150px;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
-  z-index: 1;
+
 }
 
 .logo {
@@ -216,13 +219,13 @@ button {
 
 /*//////////////////////////////////////////////////////////header (logo)////////////////////////////////////////////////////////////////////////////////*/
 /****************************************************************MOBILE**********************************************************************************/
-@media screen and (max-width: 768px) {
-  .container {
-    position: fixed;
-    top:0%;
-    left: 47%;
-    margin: 35% auto 0px;
-  }
+
+@media screen and (max-width: 600px) {
+.container {
+  margin:auto;
+  width: 50%;
+  text-align: center;
+}
 
   .topnav_logo {
     margin-left: -25px;
@@ -373,7 +376,7 @@ button {
     position: fixed;
     /*     z-index:1; */
   }
-
+  
   /* top navigation for interactive map page*/
   .responsive_menu_InteractivePage {
     display: none;
@@ -1555,7 +1558,7 @@ button:active,
   height: 100%;
 }
 
-#instafeed {
+/* #instafeed {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -1567,7 +1570,7 @@ button:active,
 #instafeed img {
   display: block;
   width: 300px;
-}
+} */
 
 /****************************************************************MOBILE**********************************************************************************/
 @media only screen and (max-width: 600px) {
