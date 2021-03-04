@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="Chicago bird community interactive map" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2Fcrow-solid.svg?v=1604344661941"
+      type="svg/x-icon"
+    />
+    <title>BiophiliaChicago</title>
+    <!-- import mapbox style -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/05e3842e9b.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- import the webpage's client-side javascript file -->
+  </head>
+  <body>
+    <header>
+      <div class="menu_InteractivePage" id="myNav">
+        <div class="menuContainer_InteractivePage">
+          <a
+            href="javascript:void(0)"
+            id="closeBtn"
+            class="closebtn_InteractivePage"
+            onclick="closeNav()"
+            >&times;</a
+          >
+          <a href="birdsinchicago.html">Birds in Chicago</a>
+          <a href="about.html">About Biophilia</a>
+          <a href="whyitmatters.html">Why it Matters</a>
+          <a href="events.html">Events/Resources</a>
+        </div>
+      </div>
+      <span
+        id="openNav"
+        class="responsive_menu_InteractivePage"
+        onclick="openNav()"
+        >&#9776;</span
+      >
+    </header>
+    <div class="sidenav" id="mySidenav">
+      <div class="topnav_logo">
+        <a href="index.html">
+          <img
+            class="target"
+            href="index.html"
+            src="https://cdn.glitch.com/317528a0-8d8a-44ae-ab8f-3bfdb029ca54%2FLOGO_5x1.png?v=1601925153018"
+            style="width:150px;"
+          />
+        </a>
+      </div>
+
+      <div class="info">
+        <!--         <button id="curatedList" onclick="openIntro()">
+          Curated List of birds
+        </button> -->
+        <hr style="color:#cca266" />
+      </div>
+
+      <!--       Create a list of buttons from json bird names -->
+      <div id="data" class="nameList" onclick="openForm()"></div>
+    </div>
+
+    <!--  Notification messages about the curated list -->
+    <div id="note" class="note">
+      <span onclick="openSide()">
+        <i class="fas fa-book-open"> <p>View the list</p></i></span
+      >
+      &#9776;
+      <h2 class="notification" style="color:#ffffff;text-align:left;">
+        This interactive map set contains 17 bird species: some rare in the
+        Chicagoland area, some common. For each species, you can see a photo and
+        hear the sound of their call. For some of these species, you can also
+        see and manipulate a three dimensional model of their skull.
+        <br /><br /><br />
+        <li>
+          All images and sounds are from Ebird database contributors (with full
+          credits given on each image or sound).
+        </li>
+        <br />
+        <li>
+          3D models were collected from the Field Museum of Natural History in
+          Chicago, IL.
+        </li>
+      </h2>
+    </div>
+
+    <!--pop up-->
+    <div class="chat-popup" id="myForm">
+      <form class="form-container">
+        <div class="crow-container">
+           <br><br><br>
+          <i class="fas fa-crow" id="crow" style="color:white; size:9x;"></i>
+        </div>
+
+        <div
+          class="outer"
+          onmouseover="rotate()"
+          onmouseleave="rotateBack()"
+          onclick="closeForm()"
+        >
+          <div class="inner"></div>
+        </div>
+
+        <h1 id="names" style="text-align:center;overflow:hidden;"></h1><br>
+        <p id="sciNames" style="text-align:center;"></p>
+        <p id="facts"></p>
+        <div id="imgContainer"></div>
+        <div id="iframeContainer"></div>
+        <div id="soundContainer"></div>
+        <br><br><br><br><br>
+      </form>
+    </div>
+
+    <div id="interactiveMap"></div>
+    <script>
+      var latitude;
+      var longitude;
+
+      fetch("/curatedList.json")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          appendData(data);
+          console.log(data);
+        })
+        .catch(function(err) {
+          console.log("error:" + err);
+        });
+
+      function appendData(data) {
+        //creating a list of buttons from the curatedList.json
+        for (let i = 0; i < data.length; i++) {
+          latitute = data[i].latitute;
+          longitude = data[i].longitude;
+
+          btn = document.createElement("button");
+          btn.style.color = "white";
+
+          //btn.innerHTML = data[i].commonName;
+          var t = document.createTextNode(data[i].commonname);
+          btn.appendChild(t);
+          list = document.getElementById("data"); //get the position
+          list.appendChild(btn); // add the list to the position
+
+          //get common bird name and assign to p element in the pop up
+          var comName = document.createElement("p");
+          document.getElementById("names").style.margin = "15px 10px -100px";
+
+          // get scientific bird name and assign to p element in the pop up
+          var sciName = document.createElement("p");
+          document.getElementById("sciNames").style.margin = "38px 10px -200px";
+          document.getElementById("sciNames").style.fontSize = "14px";
+          document.getElementById("sciNames").style.color = "#E0E0E0";
+
+          var additionalFacts = document.createElement("p");
+          document.getElementById("facts").style.margin = "75px 10px 0px";
+          document.getElementById("facts").style.fontSize = "16px";
+          document.getElementById("facts").style.lineHeight = "1.1";
+
+          var image = document.createElement("iframe");
+          image.setAttribute("src", data[i].img);
+          image.setAttribute("class", "bird-image");
+          image.setAttribute("width", "100%");
+          image.setAttribute("height", "100%");
+          image.scrolling = "no";
+          image.frameBorder = 0;
+
+          var sound = document.createElement("iframe");
+          sound.setAttribute("src", data[i].sound);
+          sound.setAttribute("width", "100%");
+          sound.setAttribute("height", "100%");
+          sound.scrolling = "no";
+          sound.frameBorder = 0;
+
+          var ifrm = document.createElement("iframe");
+          ifrm.setAttribute("src", data[i].model);
+          ifrm.setAttribute("width", "100%");
+          ifrm.setAttribute("height", "100%");
+          ifrm.frameBorder = 0;
+
+          btn.addEventListener("click", function() {
+            var code = data[i].code;
+
+            //alert("did something");
+            document.getElementById("names").innerHTML = data[i].commonname;
+            document.getElementById("sciNames").innerHTML =
+              "Scientific name: " + data[i].scientificname;
+            document.getElementById("facts").innerHTML =
+              data[i].additionalFacts;
+
+            image.src = data[i].img;
+            image.setAttribute("class", "bird-image");
+            document.getElementById("imgContainer").appendChild(image);
+
+            sound.src = data[i].sound;
+            document.getElementById("soundContainer").appendChild(sound);
+
+            if (code < 9) {
+              ifrm.setAttribute("src", data[i].model);
+              document.getElementById("iframeContainer").style.display =
+                "block";
+              document.getElementById("iframeContainer").appendChild(ifrm);
+            } else {
+              document.getElementById("iframeContainer").style.display = "none";
+            }
+            map.setFilter("historicalData", [
+              "==",
+              ["get", "code"],
+              data[i].code
+            ]);
+            map.setLayoutProperty("historicalData", "visibility", "visible");
+            console.log("filtered");
+
+            // MAP FLY TO BIRD OBSERVED SPOT
+            map.flyTo({
+              center: [
+                -87.78 - Math.random(0.0001) * 0.05,
+                41.88 + Math.random(0.0001) * 0.05
+              ],
+              zoom: 11,
+              screenSpeed: 0.1,
+              essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+            //map.scrollZoom.enable({ around: "center" });
+            //map.scrollZoom.enable();
+          });
+        }
+      }
+
+      //Mapbox
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiaG9saWhvbGx5ZGF5IiwiYSI6ImNrZjRuZHR2cDA1ODYyem9jemIzMXBnOWIifQ.tV7mtKngwhPQuRkw3qyE5w";
+      var map = new mapboxgl.Map({
+        container: "interactiveMap", // container id
+        style: "mapbox://styles/holihollyday/ckgicq3781g6v19oz45h2ibms", // style URL
+        //style: "mapbox://styles/mapbox/streets-v11", // style URL
+        zoom: 10,
+        center: [-87.78, 41.88] // starting position [lng, lat] // chicago lat, lon
+      });
+      map.scrollZoom.enable({ around: "center" });
+      map.on("load", function() {
+        map.addSource("historicalData", {
+          type: "geojson",
+          data:
+            "https://raw.githubusercontent.com/holihollyday/birdData/master/halfData.geojson"
+        });
+        map.addLayer({
+          id: "historicalData",
+          type: "heatmap",
+          source: "historicalData",
+          minzoom: 8,
+          layout: {
+            // make layer visible by default
+            visibility: "visible"
+          },
+          paint: {
+            // Increase the heatmap weight based on frequency and observation_count
+            "heatmap-weight": [
+              "interpolate",
+              ["linear"],
+              ["get", "observation_count"],
+              0,
+              20,
+              1,
+              5
+            ],
+            // Increase the heatmap color weight weight by zoom level
+
+            // // heatmap-intensity is a multiplier on top of heatmap-weight
+            // "heatmap-intensity": ["interpolate",
+            // ["linear"],["zoom"],0,10,0.1,1],
+            // // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+
+            // Begin color ramp at 0-stop with a 0-transparancy color
+            // to create a blur-like effect.
+            "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(153,102,0,0)",
+              0.2,
+              "rgb(102,102,0)",
+              0.4,
+              "rgb(209,229,240)",
+              0.6,
+              "rgb(84,84,112)",
+              0.8,
+              "rgb(240,240,0)",
+              1,
+              "rgb(240,0,0)"
+            ],
+            // Adjust the heatmap radius by zoom level
+            "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 0, 0, 9, 9],
+            // Transition from heatmap to circle layer by zoom level
+            "heatmap-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              7,
+              1,
+              10,
+              0.5
+            ]
+          }
+        });
+
+        console.log("map loaded");
+      });
+      
+    </script>
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+        document.getElementById("note").style.display = "none";
+        document.getElementById("curatedList").style.fontStyle = "normal";
+      }
+      // function openIntro() {
+      //   document.getElementById("note").style.display = "block";
+      //   document.getElementById("myForm").style.display = "none";
+      // }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+
+      function openSide() {
+        document.getElementById("mySidenav").style.width = "140px";
+        document.getElementById("note").style.display = "none";
+      }
+
+      function closeSide() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("note").style.display = "block";
+      }
+    </script>
+
+    <script>
+      <!--    RESPONSIVE NAVIGATION -->
+      function openNav() {
+      document.getElementById("myNav").style.width = "100%";
+      document.getElementById("myNav").style.zIndex= "4";
+      document.getElementById("menu").style.zIndex = "3";
+      document.getElementById("closeBtn").style.display= "block";
+      }
+
+      function closeNav() {
+      document.getElementById("myNav").style.width = "0%";
+      }
+
+      function rotate() {
+       document.getElementById("crow").style.transform ="rotate(60deg)";
+      }
+
+      function rotateBack() {
+       document.getElementById("crow").style.transform ="rotate(0deg)";
+      }
+
+
+      <!--     LOGO ROTATE EFFECT -->
+      var $topnav_logo = $(".topnav_logo"),
+        $target = $(".target"),
+        targetX = $target.offset().left + $target.width() / 2,
+        targetY = $target.offset().top + $target.height() / 2;
+
+      $topnav_logo.mousemove(function(e) {
+        var angle =
+        Math.atan2(e.pageX - targetX, -(e.pageY - targetY)) * (180 / Math.PI);
+
+        $target.css({ "-webkit-transform": "rotate(" + angle + "deg)" });
+        $target.css({ "-moz-transform": "rotate(" + angle + "deg)" });
+        $target.css({ transform: "rotate(" + angle + "deg)" });
+      });
+    </script>
+  </body>
+</html>
